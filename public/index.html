@@ -5,6 +5,20 @@
     <title>AES</title>
   </head>
   <body>
-
+    <h1>Ejemplo de Cifrado AES</h1>
+    <form class="fomulario" action="/" method="post">
+      <textarea name="textToEncrypt" placeholder="texto"></textarea>
+      <input type="text" name="psswrd" placeholder="contraseña">
+      <select name="type">
+        <option value="128">AES-128</option>
+        <option value="192">AES-192</option>
+        <option value="256">AES-256</option>
+      </select>
+      <select name="type_cifer">
+        <option value="0">Cifrar</option>
+        <option value="1">Decifrar</option>
+      </select>
+      <input type="submit" value="enviar">
+    </form>
   </body>
 </html>
