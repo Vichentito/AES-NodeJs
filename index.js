@@ -23,9 +23,9 @@ app.post('/',(req,res)=>{
   var type = req.body.type
   var proceso = req.body.type_cifer
   proceso = (proceso == 1) ? "Decifrar" : "Cifrar"
-  var c = (proceso == 0) ? "cifrado" : "decifrado"
-  var encrypted
-  switch(type){
+  var c = (proceso == 0) ? "decifrado" : "cifrado"
+  var out
+  /*switch(type){
       case 128:
         if(txt.length == 16){
            encrypted = CryptoJS.AES.encrypt(txt, psswrd);
@@ -39,18 +39,29 @@ app.post('/',(req,res)=>{
       break
       default:
       break
+  }*/
+  if (proceso == "Cifrar") {
+    var encrypted = CryptoJS.AES.encrypt(txt, psswrd);
+    out = encrypted
+  }else{
+    var decrypted = CryptoJS.AES.decrypt(txt, psswrd);
+    try{
+      out = decrypted.toString(CryptoJS.enc.Utf8)  
+    }catch(e){
+      out = "contraseña incorrecta"
+    }
+    
   }
-
-
+	
 
   var html = '<h1>Cifrado</h1>'
   html+= '<h2>Datos enviados:</h2>'
-  html+= 'Texto a cifrar: ' + txt + '<br>'
+  html+= 'Texto a '+ proceso +': ' + txt + '<br>'
   html+= 'Contraseña: ' + psswrd + '<br>'
   html+= 'Tipo : AES-' + type + '<br>'
   html+= 'Proceso: ' + proceso + '<br>'
   html+= 'Texto ' + c +': ' + '<br>'
-  html+= encrypted
+  html+= out
 
   res.send(html)
 })
